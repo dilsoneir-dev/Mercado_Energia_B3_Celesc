@@ -1,141 +1,150 @@
-# Energy Market of Santa Catarina
+# Mercado de Energia de Santa Catarina (Subgrupo B3)
 
-An exploratory analysis of Santa Catarina's energy infrastructure as a starting point for research on Artificial Intelligence, Digital Economy, and Data Centers.
-
----
-
-# Overview
-
-This project analyzes public electricity market data from the state of Santa Catarina, Brazil, provided by CELESC.
-
-The primary objective is to build an overview of electricity consumption across the state by identifying geographic, economic, and sectoral patterns that may contribute to studies on energy infrastructure and digital transformation.
-
-Beyond exploring a dataset, this project seeks to understand how the evolution of electricity demand may relate to technological development and the growing adoption of Artificial Intelligence.
+Uma análise exploratória e modelagem preditiva da infraestrutura elétrica de Santa Catarina como ponto de partida para pesquisas em Inteligência Artificial, Mercado Livre de Energia e Apoio à Tomada de Decisão.
 
 ---
 
-# Objective
+# Visão Geral
 
-Analyze the distribution of electricity consumption across municipalities in Santa Catarina, identifying regional patterns and developing indicators that support studies on energy infrastructure and economic development.
+Este projeto analisa dados públicos do mercado de energia elétrica do estado de Santa Catarina, disponibilizados pela CELESC Distribuição S.A., com foco no **Subgrupo B3 Comercial** (baixa tensão).
 
----
+O objetivo principal é avaliar o comportamento do consumo de eletricidade e desenvolver modelos de **Aprendizado de Máquina (Machine Learning)** para previsão de demanda de longo prazo, em conformidade com o cronograma de abertura de mercado estabelecido pela **Lei nº 15.269/2025**.
 
-# Background
+Além de explorar o conjunto de dados histórico, este projeto busca compreender como a previsão precisa de carga pode servir como ferramenta estratégica na migração de consumidores para o **Ambiente de Contratação Livre (ACL)**.
 
-The rapid expansion of Artificial Intelligence, cloud computing, and data centers has significantly increased global electricity demand.
-
-In this context, understanding energy infrastructure is no longer merely an operational issue—it has become a strategic component of economic and technological planning.
-
-Santa Catarina offers particularly interesting characteristics for this investigation:
-
-- Diversified economy
-- High Human Development Index (HDI)
-- Strong industrial sector
-- Expanding technology ecosystem
-- Continuous growth of innovation hubs
-
-Within this context, Greater Florianópolis receives special attention because it hosts one of Brazil's leading technology ecosystems, including startups, software companies, innovation centers, and technology parks.
-
-This project investigates whether publicly available electricity consumption data reveal patterns consistent with this economic and technological landscape, providing a foundation for future studies on digital infrastructure and emerging energy demands.
+Este repositório foi desenvolvido como requisito prático na disciplina de *Técnicas de Inteligência Artificial Aplicadas a Sistemas de Energia* do **Mestrado Profissional em Sistemas de Energia (MPSEE)** do **Instituto Federal de Santa Catarina (IFSC)** — *Campus Florianópolis*.
 
 ---
 
-# Research Questions
+# Objetivo
 
-This study aims to answer questions such as:
-
-- How is electricity consumption distributed across Santa Catarina's municipalities?
-- Which regions concentrate the highest electricity demand?
-- Are there significant differences between the state's regions?
-- How does Greater Florianópolis compare with the rest of the state?
-- Are there indications of energy concentration compatible with areas of higher technological development?
-- Which indicators could support future studies on AI infrastructure and Data Centers?
+Analisar a distribuição e o comportamento histórico do consumo de energia elétrica do Subgrupo B3 Comercial em Santa Catarina, desenvolvendo e validando modelos de Inteligência Artificial capazes de fornecer indicadores precisos para mitigação de riscos contratuais e análise de viabilidade econômica no Mercado Livre.
 
 ---
 
-# Data Source
+# Contexto
 
-- CELESC
-- Electricity Market Bulletin
-- Municipal Electricity Consumption Data
-- First Quarter of 2026
+A abertura gradual do setor elétrico brasileiro está expandindo o acesso ao Mercado Livre para consumidores comerciais conectados em baixa tensão. Com a perspectiva de abertura total até o final de 2027, a previsão precisa de demanda torna-se um pilar crítico de gestão.
+
+No Mercado Livre, incertezas na estimativa de consumo geram riscos financeiros diretos:
+
+- **Cláusulas de Take-or-Pay:** Penalidades por subcontratação ou sobrecontratação de energia.
+- **Volatilidade do PLD:** Exposição aos picos de preço no mercado de curto prazo (*Preço de Liquidação das Diferenças*), principalmente em períodos de escassez hídrica.
+- **Sazonalização e Modulação:** Necessidade de adequação dos contratos ao perfil real de consumo ao longo dos meses do ano.
+
+Com base nos dados históricos da CELESC (que abrangem o período de 1994 a 2026 com cerca de 3 milhões de registros), esta pesquisa investiga a força da tendência de crescimento e a sazonalidade estival do comércio catarinense, avaliando o potencial de economia (*savings*) frente às tarifas reguladas (ACR).
 
 ---
 
-# Technologies
+# Questões de Pesquisa
+
+Este estudo busca responder a perguntas como:
+
+- Quais são os componentes dominantes de tendência e sazonalidade no consumo comercial de Santa Catarina?
+- Como os modelos de Machine Learning (como *HistGradientBoosting*) se comparam às abordagens estatísticas clássicas (SARIMAX, Holt-Winters) na previsão fora da amostra?
+- Qual é o nível de precisão (MAPE, RMSE) alcançado na previsão de carga comercial de longo prazo?
+- Como as oscilações do PLD e os eventos hidrológicos (como a crise de 2021) afetam a viabilidade financeira da migração para o Mercado Livre?
+- Como a modelagem preditiva baseada em IA pode apoiar gestores e engenheiros na estruturação de contratos de fornecimento?
+
+---
+
+# Fonte dos Dados
+
+- **CELESC Distribuição S.A.** — Portal de Relações com Investidores e Boletins Operacionais (1994–2026).
+- **ANEEL** — Sistema de Acompanhamento do Mercado de Distribuição (SAMP).
+- **CCEE** — Câmara de Comercialização de Energia Elétrica (Histórico de PLD e encargos).
+- **Lei nº 15.269/2025** — Diretrizes regulatórias para abertura do mercado livre de energia.
+
+---
+
+# Tecnologias
 
 - Python
 - Pandas
+- NumPy
+- Scikit-Learn (*HistGradientBoosting*)
+- Statsmodels (*Decomposição STL, SARIMAX*)
+- Matplotlib & Seaborn
 - Jupyter Notebook
-- Git
-- GitHub
+- Git & GitHub
 - VS Code
-- OpenPyXL
-- Matplotlib
 
 ---
 
-# Project Structure
+# Estrutura do Projeto
 
-```
-03_Mercado_Energia_SC/
+```text
+Mercado_Energia_B3_Celesc/
 
-├── data/
-│   ├── raw/
-│   └── processed/
-├── docs/
-├── images/
-├── notebooks/
-├── src/
-└── README.md
-```
+├── data/                             # Reservado para dados brutos (ignorado no .gitignore por limite de tamanho)
+├── data_exploration_temp/            # Documentação auxiliar de exploração e guias
+├── notebooks/                        # Notebooks Jupyter em sequência lógica:
+│   ├── 01_decomposicao_sazonalidade_grupo_b.ipynb  # Decomposição STL e Análise Exploratória
+│   ├── 02_modelos_preditivos_sarimax_lstm.ipynb    # Modelos Estatísticos Clássicos e Deep Learning
+│   ├── 03_modelagem_preditiva_grupo_b3_comercial.ipynb # Pipeline Principal de Machine Learning
+│   └── 04_analise_economica_migracao_b3.ipynb      # Avaliação Financeira e Simulador de Savings
+├── report/                           # Relatórios técnicos finais e apresentações em PDF
+├── results/                          # Gráficos, mapas e figuras geradas (results/plots/)
+├── .gitignore                        # Regras para exclusão de arquivos pesados (>100MB)
+├── README.md                         # Documentação principal do repositório
+└── requirements.txt                  # Dependências das bibliotecas Python
 
----
 
-# Roadmap
-
-- Initial data exploration
-- Data cleaning and preprocessing
-- Exploratory Data Analysis (EDA)
-- Data visualization
-- Development of regional indicators
-- Regional comparison across Santa Catarina
-- Focused analysis of Greater Florianópolis
-- Future integration with public datasets related to technology, innovation, and digital infrastructure
 
 ---
 
-# Future Perspectives
+# Roteiro do Projeto (Roadmap)
 
-This repository is part of an ongoing research initiative focused on:
-
-- Energy and Data Science
-- Energy Infrastructure
-- Digital Economy
-- Artificial Intelligence
-- Data Centers
-- Regional Development
-
-The long-term objective is to build an evolving collection of studies connecting public energy, infrastructure, and technology datasets, contributing to a broader understanding of digital transformation challenges and opportunities.
+- [x] Extração e pré-processamento da base histórica da CELESC (1994–2026)
+- [x] Decomposição de séries temporais (STL) identificando forças de tendência e sazonalidade
+- [x] Comparação de desempenho de modelos preditivos (SARIMAX, Holt-Winters, HistGradientBoosting)
+- [x] Seleção do modelo campeão com base nos indicadores MAPE e RMSE
+- [x] Análise de viabilidade econômica no ACL sob cenários de volatilidade do PLD (2015–2026)
+- [x] Elaboração de documentação e relatório técnico final para o IFSC
 
 ---
 
-# Author
+# Principais Resultados e Desempenho
 
-**Maria Laura Corrêa da Silva**
+### 1. Decomposição de Séries Temporais (STL)
+- **Força da Tendência ($F_T$):** `0,9758` (refletindo o crescimento estrutural contínuo do comércio catarinense).
+- **Força da Sazonalidade ($F_S$):** `0,8252` (picos marcantes no verão impulsionados por refrigeração no varejo e turismo).
 
-*Data Analytics Student | Consultant | Researcher in Energy, Data & Digital Infrastructure*
+### 2. Confronto de Desempenho dos Modelos (Teste Fora da Amostra)
+
+| Modelo / Algoritmo | RMSE (MWh) | MAE (MWh) | MAPE (%) | Status |
+| :--- | :---: | :---: | :---: | :---: |
+| **HistGradientBoosting (Machine Learning)** | **22.544,41** | **19.920,69** | **7,46%** | **Campeão 🏆** |
+| Holt-Winters Sazonal | 53.820,64 | 47.917,99 | 18,53% | Descartado |
+| SARIMAX (1,1,1)x(1,1,1)12 | 55.389,37 | 49.864,36 | 19,45% | Descartado |
 
 ---
 
-# Connect with me
+# Perspectivas Futuras
 
-### LinkedIn
+Este repositório faz parte de uma linha de pesquisa acadêmica contínua voltada para:
 
-https://www.linkedin.com/in/maria-laura-corrêa-da-silva-059633287
+- Inteligência Artificial Aplicada a Sistemas de Energia
+- Previsão de Carga e Redes Inteligentes (*Smart Grids*)
+- Análise de Dados no Mercado Livre de Energia
+- Gestão de Riscos e Economia da Energia
 
-### GitHub
+O objetivo final é conectar técnicas avançadas de Ciência de Dados com soluções de apoio à decisão para a transição e modernização do setor elétrico em Santa Catarina.
 
-https://github.com/mlsfinternacional-cpu
+---
 
+# Autor
 
+**Dilsonei José Rigotti**
+
+*Mestrando em Sistemas de Energia (MPSEE) | Engenheiro | Pesquisador em IA e Sistemas de Energia*
+
+*Professor: Sérgio Ávila
+
+*Instituto Federal de Santa Catarina (IFSC) — Campus Florianópolis*
+
+---
+
+### Repositório Oficial
+
+https://github.com/dilsoneir-dev/Mercado_Energia_B3_Celesc

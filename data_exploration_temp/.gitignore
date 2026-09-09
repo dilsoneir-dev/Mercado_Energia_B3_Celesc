@@ -1,0 +1,5 @@
+# Caderno de laboratório
+docs/caderno_de_laboratorio/
+
+# Ambiente virtual do Python
+.venv/

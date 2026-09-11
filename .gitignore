@@ -1,5 +1,8 @@
-data/
+﻿data/*
+!data/processed/
+data/processed/*
 *.csv
 *.xlsx
 *.zip
 *.parquet
+!data/processed/sc_grupo_b_mensal.csv

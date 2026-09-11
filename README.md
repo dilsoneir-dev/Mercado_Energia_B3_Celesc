@@ -110,6 +110,8 @@ Mercado_Energia_B3_Celesc/
 - **Força da Tendência ($F_T$):** `0,9758` (refletindo o crescimento estrutural contínuo do comércio catarinense).
 - **Força da Sazonalidade ($F_S$):** `0,8252` (picos marcantes no verão impulsionados por refrigeração no varejo e turismo).
 
+> **Nota de validação (set/2026):** as métricas acima foram recalculadas sobre uma versão revisada da base (`sc_grupo_b_mensal.csv`), após identificação e correção de inconsistências na fonte original — ver seção **Qualidade de Dados** abaixo. Os valores atualizados foram $F_T = 0{,}9897$ e $F_S = 0{,}8703$, ligeiramente superiores aos originais. A conclusão qualitativa (tendência muito forte, sazonalidade estival marcante) permanece a mesma; o aumento reflete a redução de ruído residual após a limpeza, não uma mudança de interpretação. Os modelos preditivos (tabela abaixo) ainda não foram reavaliados sobre a base corrigida.
+
 ### 2. Confronto de Desempenho dos Modelos (Teste Fora da Amostra)
 
 | Modelo / Algoritmo | RMSE (MWh) | MAE (MWh) | MAPE (%) | Status |
@@ -120,7 +122,31 @@ Mercado_Energia_B3_Celesc/
 
 ---
 
-# Perspectivas Futuras
+# Qualidade de Dados
+
+Uma revisão de qualidade de dados foi conduzida sobre a base histórica da CELESC (1994–2026), identificando e corrigindo as seguintes inconsistências antes da modelagem:
+
+| Inconsistência identificada | Tratamento aplicado |
+| :--- | :--- |
+| Granularidade por unidade consumidora (UC) individual no tipo de contratação "Livre", divergente da granularidade já agregada do tipo "Cativo" | Agregação por soma em `(tipo, classe, município, mês)` |
+| Valores negativos em `consumo_mwh`, `numero_uc` e `consumo_medio_kwh_uc` (fisicamente inválidos) | Convertidos para ausente antes de qualquer agregação |
+| `numero_uc = 0` simultâneo a `consumo_mwh > 0` (logicamente contraditório) | Convertido para ausente (7.924 casos identificados nas classes Residencial, Comercial e Rural) |
+| Anomalia sistêmica concentrada em jan.–mar./2020 (picos pontuais e lacunas), afetando majoritariamente municípios pequenos | Documentada como limitação conhecida; dados mantidos sem alteração |
+| Ausência de coluna de grupo tarifário oficial (A/B) — a coluna `classe` reflete atividade econômica, não tensão/demanda contratada | Proxy estimada a partir do tipo de contratação (`Livre` → Grupo A; `Cativo` → Grupo B, com ressalva de que superestima o Grupo B real) |
+| Geração distribuída fotovoltaica não contemplada no consumo faturado | Registrada como limitação metodológica; sem tratamento possível com os dados disponíveis |
+
+A base corrigida (`sc_grupo_b_mensal.csv`, classes Residencial/Comercial/Rural) e a base específica do subgrupo B3 Comercial com o detalhamento Cativo/Livre preservado estão documentadas em relatório técnico próprio, disponível para consulta com o autor.
+
+---
+
+# Próximos Passos (alinhamento em andamento)
+
+- [ ] Reavaliar as métricas de erro dos modelos preditivos (RMSE/MAPE, tabela acima) sobre a base corrigida, verificando se as correções aplicadas ao período de teste (2024–2026) alteram o ranking dos modelos.
+- [ ] Incorporar ao notebook 03 a segmentação Cativo/Livre (proxy de grupo tarifário A/B) na análise do subgrupo B3 Comercial.
+- [ ] Avaliar impacto da geração distribuída fotovoltaica (pós-2016) como variável explicativa complementar.
+- [ ] Consolidar a seção de metodologia do artigo/relatório final com o detalhamento de qualidade de dados acima.
+
+---
 
 Este repositório faz parte de uma linha de pesquisa acadêmica contínua voltada para:
 

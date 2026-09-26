@@ -1,0 +1,23 @@
+{
+  "Residencial": {
+    "forca_tendencia": 0.9824,
+    "forca_sazonalidade": 0.834,
+    "consumo_medio_mwh": 374587.6,
+    "consumo_max_mwh": 866634.57,
+    "consumo_min_mwh": 147992.54
+  },
+  "Comercial": {
+    "forca_tendencia": 0.9897,
+    "forca_sazonalidade": 0.8703,
+    "consumo_medio_mwh": 246373.29,
+    "consumo_max_mwh": 543027.14,
+    "consumo_min_mwh": 62667.34
+  },
+  "Rural": {
+    "forca_tendencia": 0.9303,
+    "forca_sazonalidade": 0.7022,
+    "consumo_medio_mwh": 104342.28,
+    "consumo_max_mwh": 154303.63,
+    "consumo_min_mwh": 59934.18
+  }
+}

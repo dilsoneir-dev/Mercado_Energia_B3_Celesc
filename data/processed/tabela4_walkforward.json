@@ -1,0 +1,36 @@
+{
+  "resumo": [
+    {
+      "modelo": "Holt-Winters",
+      "mape_medio": 9.01,
+      "mape_mediana": 9.75,
+      "mape_desvio": 3.27,
+      "wilcoxon_vs_hw": "—"
+    },
+    {
+      "modelo": "Gradient Boosting",
+      "mape_medio": 10.14,
+      "mape_mediana": 9.82,
+      "mape_desvio": 4.46,
+      "wilcoxon_vs_hw": "p = 0.147"
+    },
+    {
+      "modelo": "LSTM",
+      "mape_medio": 13.49,
+      "mape_mediana": 11.4,
+      "mape_desvio": 6.36,
+      "wilcoxon_vs_hw": "p = 0.00186"
+    }
+  ],
+  "testes_wilcoxon": {
+    "Holt-Winters": null,
+    "Gradient Boosting": {
+      "shapiro_diffs_p": 0.6269,
+      "wilcoxon_p": 0.14696407318115234
+    },
+    "LSTM": {
+      "shapiro_diffs_p": 0.1501,
+      "wilcoxon_p": 0.0018587112426757812
+    }
+  }
+}

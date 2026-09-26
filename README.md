@@ -83,11 +83,11 @@ Mercado_Energia_B3_Celesc/
 │   │                  #   e sc_grupo_b_mensal.csv (base revisada do Grupo B, lida pelo 01)
 │   └── SHA256SUMS.txt # Hash do conteúdo original de cada bruto (reprodutibilidade)
 ├── notebooks/         # Notebooks Jupyter em sequência lógica:
-│   ├── 00_dados brutos_tratamento.ipynb                # Ingestão, saneamento e exportação para data/processed
-│   ├── 01_decomposicao_sazonalidade_grupo_b.ipynb      # Exploratório do Grupo B: STL, ACF/PACF e forças F_T/F_S por classe
-│   ├── 02_modelos_preditivos_hw_lstm_gb.ipynb          # Holt-Winters, LSTM e Gradient Boosting
-│   ├── 03_modelagem_preditiva_grupo_b3_comercial.ipynb # Pipeline principal de modelagem B3
-│   └── 04_analise_economica_migracao_b3.ipynb          # Avaliação financeira e simulador de savings
+│   ├── 00_tratamento_dados_brutos.ipynb        # Ingestão, saneamento e exportação para data/processed
+│   ├── 01_exploratorio_grupo_b_stl.ipynb       # Exploratório do Grupo B: STL, ACF/PACF e forças F_T/F_S por classe
+│   ├── 02_comparacao_modelos_b3.ipynb          # B3: Holt-Winters × LSTM × Gradient Boosting (teste único e walk-forward)
+│   ├── 03_projecao_consumo_b3_2030.ipynb       # B3: STL e projeção de consumo até dez/2030 (LSTM)
+│   └── 04_analise_economica_migracao_acl.ipynb # B3: custo cativo × livre, economia e sensibilidade
 ├── report/            # Relatórios técnicos finais
 ├── results/plots/     # Figuras geradas pelos notebooks
 ├── scripts/

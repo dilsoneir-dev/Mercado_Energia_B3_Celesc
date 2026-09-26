@@ -1,8 +1,28 @@
-﻿data/*
-!data/processed/
-data/processed/*
-*.csv
-*.xlsx
+# ==========================================
+# Ambientes e Arquivos Temporários
+# ==========================================
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+.venv/
+venv/
+.env
+
+# Arquivos temporários do Office (criados enquanto o arquivo está aberto)
+~$*
+
+# ==========================================
+# Dados Brutos
+# ==========================================
+# Os brutos grandes são versionados COMPRIMIDOS (.csv.gz), gerados por
+# scripts/organizar_dados.py. Os originais descomprimidos ficam só no disco local.
+data/CELESC/celesc_consumo_uc_1994_2026.csv
+data/ANEEL/tarifas-homologadas-distribuidoras-energia-eletrica.csv
+
+# Outros arquivos pesados que não entram no repositório
+celesc_consumo_uc_1994_2026.xlsx
+Municipio_Mensal_1T_2026.xlsx
 *.zip
 *.parquet
-!data/processed/sc_grupo_b_mensal.csv
+*.gz.tmp

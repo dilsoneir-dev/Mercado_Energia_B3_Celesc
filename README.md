@@ -75,21 +75,37 @@ Este estudo busca responder a perguntas como:
 
 ```text
 Mercado_Energia_B3_Celesc/
+├── data/
+│   ├── CELESC/        # Consumo por UC 1994–2026 (bruto, .csv.gz) e séries B3 tratadas
+│   ├── ANEEL/         # Tarifas homologadas das distribuidoras (bruto, .csv.gz)
+│   ├── CCEE/          # PLD médio semanal 2001–2026 (bruto, .csv)
+│   ├── processed/     # Dados tratados: saídas do notebook 00 (trilha B3, lidas por 02–04)
+│   │                  #   e sc_grupo_b_mensal.csv (base revisada do Grupo B, lida pelo 01)
+│   └── SHA256SUMS.txt # Hash do conteúdo original de cada bruto (reprodutibilidade)
+├── notebooks/         # Notebooks Jupyter em sequência lógica:
+│   ├── 00_dados brutos_tratamento.ipynb                # Ingestão, saneamento e exportação para data/processed
+│   ├── 01_decomposicao_sazonalidade_grupo_b.ipynb      # Exploratório do Grupo B: STL, ACF/PACF e forças F_T/F_S por classe
+│   ├── 02_modelos_preditivos_hw_lstm_gb.ipynb          # Holt-Winters, LSTM e Gradient Boosting
+│   ├── 03_modelagem_preditiva_grupo_b3_comercial.ipynb # Pipeline principal de modelagem B3
+│   └── 04_analise_economica_migracao_b3.ipynb          # Avaliação financeira e simulador de savings
+├── report/            # Relatórios técnicos finais
+├── results/plots/     # Figuras geradas pelos notebooks
+├── scripts/
+│   └── organizar_dados.py  # Comprime e verifica os brutos para versionamento
+├── .gitignore
+├── README.md
+└── requirements.txt
+```
 
-├── data/                             # Reservado para dados brutos (ignorado no .gitignore por limite de tamanho)
-├── data_exploration_temp/            # Documentação auxiliar de exploração e guias
-├── notebooks/                        # Notebooks Jupyter em sequência lógica:
-│   ├── 01_decomposicao_sazonalidade_grupo_b.ipynb  # Decomposição STL e Análise Exploratória
-│   ├── 02_modelos_preditivos_sarimax_lstm.ipynb    # Modelos Estatísticos Clássicos e Deep Learning
-│   ├── 03_modelagem_preditiva_grupo_b3_comercial.ipynb # Pipeline Principal de Machine Learning
-│   └── 04_analise_economica_migracao_b3.ipynb      # Avaliação Financeira e Simulador de Savings
-├── report/                           # Relatórios técnicos finais e apresentações em PDF
-├── results/                          # Gráficos, mapas e figuras geradas (results/plots/)
-├── .gitignore                        # Regras para exclusão de arquivos pesados (>100MB)
-├── README.md                         # Documentação principal do repositório
-└── requirements.txt                  # Dependências das bibliotecas Python
+---
 
+# Como Reproduzir
 
+1. Clone o repositório e instale as dependências: `pip install -r requirements.txt`.
+2. Os dados brutos já vêm no repositório, comprimidos (`.csv.gz`) nas pastas `data/CELESC`, `data/ANEEL` e `data/CCEE`. O `pandas` lê esses arquivos diretamente, sem descompactar.
+3. Execute a trilha B3 em ordem: `00` → `02` → `03` → `04`. O notebook `00` gera os arquivos de `data/processed/` usados pelos demais, e o `03` gera a previsão de consumo usada pelo `04`. O notebook `01` (exploratório do Grupo B) é independente e pode ser executado a qualquer momento.
+
+Para atualizar um bruto (por exemplo, com uma nova versão baixada do portal): salve o `.csv` original na pasta da fonte, rode `python scripts/organizar_dados.py` e faça o commit do `.csv.gz` e do `data/SHA256SUMS.txt` atualizados. Registre a nova data de acesso na seção 1 do notebook `00`.
 
 ---
 

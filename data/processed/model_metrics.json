@@ -1,0 +1,14 @@
+[
+  {
+    "Modelo": "SARIMAX",
+    "RMSE": 46357.52,
+    "MAE": 39645.94,
+    "MAPE (%)": 16.27
+  },
+  {
+    "Modelo": "Gradient Boosting",
+    "RMSE": 20823.78,
+    "MAE": 18389.23,
+    "MAPE (%)": 7.19
+  }
+]

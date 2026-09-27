@@ -47,6 +47,11 @@ Os dados brutos estão versionados no próprio repositório e também podem ser 
 | ANEEL | Tarifas homologadas das distribuidoras (TUSD e TE), ago/2010–ago/2027 | https://dadosabertos.aneel.gov.br/dataset/tarifas-distribuidoras-energia-eletrica |
 | CCEE | PLD médio semanal (2001–2026), filtrado no submercado Sul | https://dadosabertos.ccee.org.br/dataset/pld_media_semanal |
 
+**Arquivos brutos não versionados.** Para manter o repositório leve, as versões descomprimidas dos brutos e as planilhas originais baixadas dos portais não são versionadas (ver `.gitignore`). Os notebooks leem apenas os arquivos `.csv.gz` versionados, cuja integridade pode ser conferida pelos hashes em `data/SHA256SUMS.txt`:
+
+- `data/ANEEL/tarifas-homologadas-distribuidoras-energia-eletrica.csv` (~89 MB): versão descomprimida do `.csv.gz` versionado.
+- `data/CELESC/Municipio_Mensal_1T_2026.xlsx` (~36 MB): planilha de consumo mensal por município baixada do portal de Dados de Consumo da CELESC (link acima), com data de arquivo de 02/08/2026. Não é lida pelos notebooks; é mantida apenas localmente como registro da fonte original.
+
 ## Como executar
 
 ```bash

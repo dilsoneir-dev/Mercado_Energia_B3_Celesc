@@ -5,11 +5,15 @@
 Mestrado Profissional em Sistemas de Energia Elétrica (MPSEE) — IFSC, Câmpus Florianópolis
 Disciplina: IAA68303 — Técnicas de Inteligência Artificial Aplicadas a Sistemas de Energia (2026.3 — T01)
 Professor: Sérgio Luciano Ávila
-Autor: Dilsonei José Rigotti
+Aluno: Dilsonei José Rigotti
 
 ---
 
-## Objetivo
+## Objetivo Principal
+
+Trazer um problema ligado a sistemas de energia com dados públicos disponíveis, efetuar a manipulação desses dados utilizando como suporte ferramentas de Inteligência Artificial (IA), realizar análises, buscar resultados e fazer projeções. Antes de ser uma busca original e complexa por resultados, o foco do trabalho é o de estabelecer um entendimento sobre o esforço necessário para se trabalhar com dados, efetuar simulações, comparar indicadores e propor cenários, considerando o uso de arquiteturas de redes neurais (como o LSTM) em bibliotecas existentes (caso do TensorFlow), desenvolvidas para criar, treinar e implantar modelos de Aprendizado de Máquina (Machine Learning) e Redes Neurais Profundas (Deep Learning).
+
+## Objetivo Secundário
 
 Projetar o consumo de energia elétrica do Subgrupo B3 Comercial (mercado cativo) da CELESC até 2030 e avaliar a vantajosidade financeira da migração desses consumidores para o Ambiente de Contratação Livre (ACL), cuja abertura para a baixa tensão está prevista pela Lei nº 15.269/2025 a partir de novembro de 2027.
 
@@ -29,7 +33,7 @@ Mercado_Energia_B3_Celesc/
 │   └── processed/                              # Séries tratadas, métricas, previsões e simulações
 ├── results/
 │   └── plots/                                  # Figuras do relatório
-├── report/                                     # Relatório final (.docx)
+├── report/                                     # Relatório final (Relatorio_Final_IEEE_TecnicasIA_Dilsonei.docx)
 ├── scripts/
 │   └── organizar_dados.py
 ├── requirements.txt
@@ -54,11 +58,13 @@ Os dados brutos estão versionados no próprio repositório e também podem ser 
 
 ## Como executar
 
+Ambiente de referência: **Python 3.11**, com as versões fixadas no `requirements.txt` (incluindo TensorFlow 2.21):
+
 ```bash
 pip install -r requirements.txt
 ```
 
-Execute os notebooks na ordem **00 → 02 → 03 → 04** (o 01 é exploratório). Como os dados brutos estão versionados e o LSTM roda em modo determinístico, a execução no ambiente do `requirements.txt` reproduz exatamente os números do relatório.
+Execute os notebooks na ordem **00 → 02 → 03 → 04**. O notebook 01 é exploratório e independente: lê o arquivo versionado `data/processed/sc_grupo_b_mensal.csv`, cujo código de geração a partir da base bruta não faz parte do repositório. Como os dados brutos estão versionados e o LSTM roda em modo determinístico, a execução no ambiente do `requirements.txt` reproduz exatamente os números do relatório.
 
 ## Metodologia (resumo)
 
@@ -97,13 +103,13 @@ Execute os notebooks na ordem **00 → 02 → 03 → 04** (o 01 é exploratório
 
 ## Justificativa da escolha das técnicas
 
-A ferramenta de inteligência computacional central é a rede neural recorrente **LSTM**, escolhida porque a projeção de consumo é um problema de série temporal: cada valor depende dos meses anteriores e do mesmo mês em anos passados. O LSTM foi concebido para aprender dependências de longo prazo em sequências e, por ser não linear, pode capturar rupturas como a recessão de 2015–2016, a pandemia de 2020 e a queda de 2025. O **Gradient Boosting** foi adotado como segunda técnica de aprendizado de máquina (abordagem não neural, de menor custo), e o **Holt-Winters** como referência estatística — uma técnica de IA só se justifica se superar um método clássico bem ajustado.
+A ferramenta de inteligência computacional central é a rede neural recorrente **LSTM**, escolhida porque a projeção de consumo é um problema de série temporal: cada valor depende dos meses anteriores e do mesmo mês em anos passados. O LSTM foi concebido para aprender dependências de longo prazo em sequências e, por ser não linear, pode capturar rupturas como a recessão de 2015–2016, a pandemia de 2020 e a queda de 2025. O **Gradient Boosting** foi adotado como comparação (segunda técnica) de aprendizado de máquina (abordagem não neural, de menor custo), e o **Holt-Winters** como referência estatística — uma técnica de IA só se justifica se superar um método clássico bem ajustado.
 
-O trabalho não pressupõe a superioridade da IA: o LSTM é tratado como hipótese a ser testada, por validação walk-forward e teste de Wilcoxon, e não por uma única divisão treino/teste. O resultado indicou o Holt-Winters como o modelo mais preciso e estável, o que é coerente com a série: apenas 376 observações mensais, volume reduzido para redes profundas, e tendência e sazonalidade fortes, que um modelo de decomposição explícita captura de forma eficiente. O LSTM foi mantido na projeção por ser a ferramenta sob avaliação; isso não altera a economia percentual, que depende apenas da razão entre as componentes tarifárias e é invariante ao modelo de consumo. O LSTM permanece promissor para dados de maior resolução (horários, medição inteligente) ou com variáveis exógenas.
+O trabalho não pressupõe a superioridade da IA: o LSTM é tratado como hipótese a ser testada, por validação walk-forward e teste de Wilcoxon, e não por uma única divisão treino/teste. O resultado indicou, para esta simulação, que o modelo Holt-Winters é mais preciso e estável, o que é coerente com a série: apenas 376 observações mensais, volume reduzido para redes profundas, e tendência e sazonalidade fortes, que um modelo de decomposição explícita captura de forma eficiente. O LSTM foi mantido na projeção por ser a ferramenta avaliada; essa escolha não altera a economia percentual, que depende apenas da razão entre as componentes tarifárias e é invariante ao modelo de consumo. O LSTM permanece mais promissor para dados de maior resolução (horários, medição inteligente) e/ou com variáveis exógenas (temperatura, atividade econômica, geração distribuída, feriados, tarifas,...).
 
 ## Principais limitações
 
-- "Comercial Cativo" é uma aproximação do Subgrupo B3 (a base não tem coluna de subgrupo tarifário).
+- "Comercial Cativo" é uma aproximação do Subgrupo B3 (a base não tem coluna por subgrupo tarifário).
 - Incerteza da projeção cresce ao longo dos 57 meses, especialmente em 2029–2030.
 - Encargos do mercado livre estimados por premissa (três cenários), não por dados de mercado; garantias financeiras e penalidades por desvio de contrato não modeladas.
 - PLD como referência do preço no ACL, com 100% do consumo exposto a ele.

@@ -11,6 +11,7 @@ venv/
 
 # Arquivos temporários do Office (criados enquanto o arquivo está aberto)
 ~$*
+~WRL*.tmp
 
 # ==========================================
 # Dados Brutos

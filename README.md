@@ -1,192 +1,114 @@
-# Mercado de Energia de Santa Catarina (Subgrupo B3)
+# Mercado_Energia_B3_Celesc
 
-Uma análise exploratória e modelagem preditiva da infraestrutura elétrica de Santa Catarina como ponto de partida para pesquisas em Inteligência Artificial, Mercado Livre de Energia e Apoio à Tomada de Decisão.
+**Análise de Dados com Uso de Inteligência Artificial como Ferramenta de Apoio à Migração de Consumidores do Subgrupo B3 para o Mercado Livre de Energia**
 
----
-
-# Visão Geral
-
-Este projeto analisa dados públicos do mercado de energia elétrica do estado de Santa Catarina, disponibilizados pela CELESC Distribuição S.A., com foco no **Subgrupo B3 Comercial** (baixa tensão).
-
-O objetivo principal é avaliar o comportamento do consumo de eletricidade e desenvolver modelos de **Aprendizado de Máquina (Machine Learning)** para previsão de demanda de longo prazo, em conformidade com o cronograma de abertura de mercado estabelecido pela **Lei nº 15.269/2025**.
-
-Além de explorar o conjunto de dados histórico, este projeto busca compreender como a previsão precisa de carga pode servir como ferramenta estratégica na migração de consumidores para o **Ambiente de Contratação Livre (ACL)**.
-
-Este repositório foi desenvolvido como requisito prático na disciplina de *Técnicas de Inteligência Artificial Aplicadas a Sistemas de Energia* do **Mestrado Profissional em Sistemas de Energia (MPSEE)** do **Instituto Federal de Santa Catarina (IFSC)** — *Campus Florianópolis*.
+Mestrado Profissional em Sistemas de Energia Elétrica (MPSEE) — IFSC, Câmpus Florianópolis
+Disciplina: IAA68303 — Técnicas de Inteligência Artificial Aplicadas a Sistemas de Energia (2026.3 — T01)
+Professor: Sérgio Luciano Ávila
+Autor: Dilsonei José Rigotti
 
 ---
 
-# Objetivo
+## Objetivo
 
-Analisar a distribuição e o comportamento histórico do consumo de energia elétrica do Subgrupo B3 Comercial em Santa Catarina, desenvolvendo e validando modelos de Inteligência Artificial capazes de fornecer indicadores precisos para mitigação de riscos contratuais e análise de viabilidade econômica no Mercado Livre.
+Projetar o consumo de energia elétrica do Subgrupo B3 Comercial (mercado cativo) da CELESC até 2030 e avaliar a vantajosidade financeira da migração desses consumidores para o Ambiente de Contratação Livre (ACL), cuja abertura para a baixa tensão está prevista pela Lei nº 15.269/2025 a partir de novembro de 2027.
 
----
+## Estrutura do repositório
 
-# Contexto
-
-A abertura gradual do setor elétrico brasileiro está expandindo o acesso ao Mercado Livre para consumidores comerciais conectados em baixa tensão. Com a perspectiva de abertura total até o final de 2027, a previsão precisa de demanda torna-se um pilar crítico de gestão.
-
-No Mercado Livre, incertezas na estimativa de consumo geram riscos financeiros diretos:
-
-- **Cláusulas de Take-or-Pay:** Penalidades por subcontratação ou sobrecontratação de energia.
-- **Volatilidade do PLD:** Exposição aos picos de preço no mercado de curto prazo (*Preço de Liquidação das Diferenças*), principalmente em períodos de escassez hídrica.
-- **Sazonalização e Modulação:** Necessidade de adequação dos contratos ao perfil real de consumo ao longo dos meses do ano.
-
-Com base nos dados históricos da CELESC (que abrangem o período de 1994 a 2026 com cerca de 3 milhões de registros), esta pesquisa investiga a força da tendência de crescimento e a sazonalidade estival do comércio catarinense, avaliando o potencial de economia (*savings*) frente às tarifas reguladas (ACR).
-
----
-
-# Questões de Pesquisa
-
-Este estudo busca responder a perguntas como:
-
-- Quais são os componentes dominantes de tendência e sazonalidade no consumo comercial de Santa Catarina?
-- Como os modelos de Machine Learning (como *HistGradientBoosting*) se comparam às abordagens estatísticas clássicas (SARIMAX, Holt-Winters) na previsão fora da amostra?
-- Qual é o nível de precisão (MAPE, RMSE) alcançado na previsão de carga comercial de longo prazo?
-- Como as oscilações do PLD e os eventos hidrológicos (como a crise de 2021) afetam a viabilidade financeira da migração para o Mercado Livre?
-- Como a modelagem preditiva baseada em IA pode apoiar gestores e engenheiros na estruturação de contratos de fornecimento?
-
----
-
-# Fonte dos Dados
-
-- **CELESC Distribuição S.A.** — Portal de Relações com Investidores e Boletins Operacionais (1994–2026).
-- **ANEEL** — Sistema de Acompanhamento do Mercado de Distribuição (SAMP).
-- **CCEE** — Câmara de Comercialização de Energia Elétrica (Histórico de PLD e encargos).
-- **Lei nº 15.269/2025** — Diretrizes regulatórias para abertura do mercado livre de energia.
-
----
-
-# Tecnologias
-
-- Python
-- Pandas
-- NumPy
-- Scikit-Learn (*HistGradientBoosting*)
-- Statsmodels (*Decomposição STL, SARIMAX*)
-- Matplotlib & Seaborn
-- Jupyter Notebook
-- Git & GitHub
-- VS Code
-
----
-
-# Estrutura do Projeto
-
-```text
+```
 Mercado_Energia_B3_Celesc/
+├── notebooks/
+│   ├── 00_tratamento_dados_brutos.ipynb        # Ingestão e saneamento (CELESC, ANEEL, CCEE); trilhas B3_Cativo e Comercial_Livre_ACL
+│   ├── 01_exploratorio_grupo_b_stl.ipynb       # Análise exploratória do Grupo B e decomposição STL
+│   ├── 02_comparacao_modelos_b3.ipynb          # Holt-Winters, LSTM e Gradient Boosting (janela única + walk-forward)
+│   ├── 03_projecao_consumo_b3_2030.ipynb       # STL e projeção de consumo até 2030
+│   └── 04_analise_economica_migracao_acl.ipynb # Simulação Cativo x Livre, encargos do mercado livre e riscos
 ├── data/
-│   ├── CELESC/        # Consumo por UC 1994–2026 (bruto, .csv.gz) e séries B3 tratadas
-│   ├── ANEEL/         # Tarifas homologadas das distribuidoras (bruto, .csv.gz)
-│   ├── CCEE/          # PLD médio semanal 2001–2026 (bruto, .csv)
-│   ├── processed/     # Dados tratados: saídas do notebook 00 (trilha B3, lidas por 02–04)
-│   │                  #   e sc_grupo_b_mensal.csv (base revisada do Grupo B, lida pelo 01)
-│   └── SHA256SUMS.txt # Hash do conteúdo original de cada bruto (reprodutibilidade)
-├── notebooks/         # Notebooks Jupyter em sequência lógica:
-│   ├── 00_tratamento_dados_brutos.ipynb        # Ingestão, saneamento e exportação para data/processed
-│   ├── 01_exploratorio_grupo_b_stl.ipynb       # Exploratório do Grupo B: STL, ACF/PACF e forças F_T/F_S por classe
-│   ├── 02_comparacao_modelos_b3.ipynb          # B3: Holt-Winters × LSTM × Gradient Boosting (teste único e walk-forward)
-│   ├── 03_projecao_consumo_b3_2030.ipynb       # B3: STL e projeção de consumo até dez/2030 (LSTM)
-│   └── 04_analise_economica_migracao_acl.ipynb # B3: custo cativo × livre, economia e sensibilidade
-├── report/            # Relatórios técnicos finais
-├── results/plots/     # Figuras geradas pelos notebooks
+│   ├── CELESC/  ANEEL/  CCEE/                  # Dados brutos originais (maiores em .csv.gz)
+│   ├── SHA256SUMS.txt                          # Hash SHA-256 de cada arquivo bruto
+│   └── processed/                              # Séries tratadas, métricas, previsões e simulações
+├── results/
+│   └── plots/                                  # Figuras do relatório
+├── report/                                     # Relatório final (.docx)
 ├── scripts/
-│   └── organizar_dados.py  # Comprime e verifica os brutos para versionamento
+│   └── organizar_dados.py
+├── requirements.txt
 ├── .gitignore
-├── README.md
-└── requirements.txt
+└── README.md
 ```
 
----
+## Fontes de dados
 
-# Como Reproduzir
+Os dados brutos estão versionados no próprio repositório e também podem ser obtidos nos portais públicos:
 
-1. Clone o repositório e instale as dependências: `pip install -r requirements.txt`.
-2. Os dados brutos já vêm no repositório, comprimidos (`.csv.gz`) nas pastas `data/CELESC`, `data/ANEEL` e `data/CCEE`. O `pandas` lê esses arquivos diretamente, sem descompactar.
-3. Execute a trilha B3 em ordem: `00` → `02` → `03` → `04`. O notebook `00` gera os arquivos de `data/processed/` usados pelos demais, e o `03` gera a previsão de consumo usada pelo `04`. O notebook `01` (exploratório do Grupo B) é independente e pode ser executado a qualquer momento.
+| Fonte | Conteúdo | Link |
+|---|---|---|
+| CELESC | Consumo mensal por município, classe e tipo de contratação (jan/1994–mar/2026) | https://www.celesc.com.br/home/mercado-de-energia/dados-de-consumo |
+| ANEEL | Tarifas homologadas das distribuidoras (TUSD e TE), ago/2010–ago/2027 | https://dadosabertos.aneel.gov.br/dataset/tarifas-distribuidoras-energia-eletrica |
+| CCEE | PLD médio semanal (2001–2026), filtrado no submercado Sul | https://dadosabertos.ccee.org.br/dataset/pld_media_semanal |
 
-Para atualizar um bruto (por exemplo, com uma nova versão baixada do portal): salve o `.csv` original na pasta da fonte, rode `python scripts/organizar_dados.py` e faça o commit do `.csv.gz` e do `data/SHA256SUMS.txt` atualizados. Registre a nova data de acesso na seção 1 do notebook `00`.
+## Como executar
 
----
+```bash
+pip install -r requirements.txt
+```
 
-# Roteiro do Projeto (Roadmap)
+Execute os notebooks na ordem **00 → 02 → 03 → 04** (o 01 é exploratório). Como os dados brutos estão versionados e o LSTM roda em modo determinístico, a execução no ambiente do `requirements.txt` reproduz exatamente os números do relatório.
 
-- [x] Extração e pré-processamento da base histórica da CELESC (1994–2026)
-- [x] Decomposição de séries temporais (STL) identificando forças de tendência e sazonalidade
-- [x] Comparação de desempenho de modelos preditivos (SARIMAX, Holt-Winters, HistGradientBoosting)
-- [x] Seleção do modelo campeão com base nos indicadores MAPE e RMSE
-- [x] Análise de viabilidade econômica no ACL sob cenários de volatilidade do PLD (2015–2026)
-- [x] Elaboração de documentação e relatório técnico final para o IFSC
+## Metodologia (resumo)
 
----
+**Tratamento dos dados:** filtragem da classe Comercial e do tipo Cativo (representativos do Subgrupo B3); agregação de duplicatas; expurgo de registros com UC ≤ 0 e consumo < 0; filtro IQR (100–3.000 kWh/UC/mês). A série final tem 376 dos 387 meses (jan–nov/1994 ausentes na fonte).
 
-# Principais Resultados e Desempenho
+**Modelos:**
+- **LSTM** (TensorFlow/Keras) — 1 camada LSTM (32 unidades) + densa (16, ReLU) + saída linear; janela de 12 meses; z-score ajustado só no treino; Adam (lr = 0,005); early stopping; previsão recursiva.
+- **Gradient Boosting** (HistGradientBoostingRegressor) — previsão recursiva com defasagens da série.
+- **Holt-Winters** (statsmodels) — tendência e sazonalidade aditivas, 12 períodos (referência estatística).
+- **STL** — FT = 0,956; FS = 0,667 para o B3 Comercial.
 
-### 1. Decomposição de Séries Temporais (STL)
-- **Força da Tendência ($F_T$):** `0,9758` (refletindo o crescimento estrutural contínuo do comércio catarinense).
-- **Força da Sazonalidade ($F_S$):** `0,8252` (picos marcantes no verão impulsionados por refrigeração no varejo e turismo).
+**Validação walk-forward** (21 janelas de 12 meses, 2005–2025, retreino a cada janela):
 
-> **Nota de validação (set/2026):** as métricas acima foram recalculadas sobre uma versão revisada da base (`sc_grupo_b_mensal.csv`), após identificação e correção de inconsistências na fonte original — ver seção **Qualidade de Dados** abaixo. Os valores atualizados foram $F_T = 0{,}9897$ e $F_S = 0{,}8703$, ligeiramente superiores aos originais. A conclusão qualitativa (tendência muito forte, sazonalidade estival marcante) permanece a mesma; o aumento reflete a redução de ruído residual após a limpeza, não uma mudança de interpretação. Os modelos preditivos (tabela abaixo) ainda não foram reavaliados sobre a base corrigida.
+| Modelo | MAPE médio | Wilcoxon vs. HW |
+|---|---|---|
+| Holt-Winters | 9,01% | — |
+| Gradient Boosting | 10,19% | p = 0,137 |
+| LSTM | 12,84% | p = 0,002 |
 
-### 2. Confronto de Desempenho dos Modelos (Teste Fora da Amostra)
+**Simulação financeira (abr/2026–dez/2030):** Cativo = consumo × (TUSD + TE); Livre = consumo × (TUSD + PLD Sul + encargos). Sem encargos, a economia média projetada do Livre é de **24,8%** — um limite otimista.
 
-| Modelo / Algoritmo | RMSE (MWh) | MAE (MWh) | MAPE (%) | Status |
-| :--- | :---: | :---: | :---: | :---: |
-| **HistGradientBoosting (Machine Learning)** | **22.544,41** | **19.920,69** | **7,46%** | **Campeão 🏆** |
-| Holt-Winters Sazonal | 53.820,64 | 47.917,99 | 18,53% | Descartado |
-| SARIMAX (1,1,1)x(1,1,1)12 | 55.389,37 | 49.864,36 | 19,45% | Descartado |
+**Encargos do mercado livre (notebook 04, Seção 6.1).** Ao migrar, o consumidor deixa de pagar a TE, mas passa a pagar diretamente componentes que no cativo estão embutidos nela. CDE, PROINFA, TFSEE, P&D/EE e ONS fazem parte da TUSD e são pagos igualmente nos dois ambientes, por isso não entram como custo adicional. Premissas de referência (R$/MWh, 2026):
 
----
+| Componente | Otimista | Base | Pessimista |
+|---|---|---|---|
+| Perdas na rede básica (sobre o preço da energia) | 1,5% | 2,0% | 3,0% |
+| ESS + EER + ERCAP | 10 | 20 | 40 |
+| Angra 1 e 2 (Lei 15.235/2025, desde 2026) | 3 | 5 | 8 |
+| Comercializador varejista + contribuição CCEE | 10 | 20 | 40 |
+| Prêmio de risco do contrato sobre o PLD | 15 | 30 | 60 |
+| Novos encargos da Lei 15.269/2025 (sobrecontratação, SUI), a partir de nov/2027 | 0 | 0 | 15 |
+| **Economia média do Livre** | **19,7%** | **15,0%** | **4,6%** |
+| Meses em que o Livre é mais barato | 57 de 57 | 55 de 57 | 42 de 57 |
 
-# Qualidade de Dados
+**Validação histórica 2011–2025 (Seção 6.2):** um consumidor B3 exposto ao PLD, com os encargos do cenário base, teria pago mais que no cativo em **7 dos 15 anos** (5 sem encargos); o pior ano foi 2014 (−164%). O benefício da migração depende fortemente do regime hidrológico.
 
-Uma revisão de qualidade de dados foi conduzida sobre a base histórica da CELESC (1994–2026), identificando e corrigindo as seguintes inconsistências antes da modelagem:
+## Justificativa da escolha das técnicas
 
-| Inconsistência identificada | Tratamento aplicado |
-| :--- | :--- |
-| Granularidade por unidade consumidora (UC) individual no tipo de contratação "Livre", divergente da granularidade já agregada do tipo "Cativo" | Agregação por soma em `(tipo, classe, município, mês)` |
-| Valores negativos em `consumo_mwh`, `numero_uc` e `consumo_medio_kwh_uc` (fisicamente inválidos) | Convertidos para ausente antes de qualquer agregação |
-| `numero_uc = 0` simultâneo a `consumo_mwh > 0` (logicamente contraditório) | Convertido para ausente (7.924 casos identificados nas classes Residencial, Comercial e Rural) |
-| Anomalia sistêmica concentrada em jan.–mar./2020 (picos pontuais e lacunas), afetando majoritariamente municípios pequenos | Documentada como limitação conhecida; dados mantidos sem alteração |
-| Ausência de coluna de grupo tarifário oficial (A/B) — a coluna `classe` reflete atividade econômica, não tensão/demanda contratada | Proxy estimada a partir do tipo de contratação (`Livre` → Grupo A; `Cativo` → Grupo B, com ressalva de que superestima o Grupo B real) |
-| Geração distribuída fotovoltaica não contemplada no consumo faturado | Registrada como limitação metodológica; sem tratamento possível com os dados disponíveis |
+A ferramenta de inteligência computacional central é a rede neural recorrente **LSTM**, escolhida porque a projeção de consumo é um problema de série temporal: cada valor depende dos meses anteriores e do mesmo mês em anos passados. O LSTM foi concebido para aprender dependências de longo prazo em sequências e, por ser não linear, pode capturar rupturas como a recessão de 2015–2016, a pandemia de 2020 e a queda de 2025. O **Gradient Boosting** foi adotado como segunda técnica de aprendizado de máquina (abordagem não neural, de menor custo), e o **Holt-Winters** como referência estatística — uma técnica de IA só se justifica se superar um método clássico bem ajustado.
 
-A base corrigida (`sc_grupo_b_mensal.csv`, classes Residencial/Comercial/Rural) e a base específica do subgrupo B3 Comercial com o detalhamento Cativo/Livre preservado estão documentadas em relatório técnico próprio, disponível para consulta com o autor.
+O trabalho não pressupõe a superioridade da IA: o LSTM é tratado como hipótese a ser testada, por validação walk-forward e teste de Wilcoxon, e não por uma única divisão treino/teste. O resultado indicou o Holt-Winters como o modelo mais preciso e estável, o que é coerente com a série: apenas 376 observações mensais, volume reduzido para redes profundas, e tendência e sazonalidade fortes, que um modelo de decomposição explícita captura de forma eficiente. O LSTM foi mantido na projeção por ser a ferramenta sob avaliação; isso não altera a economia percentual, que depende apenas da razão entre as componentes tarifárias e é invariante ao modelo de consumo. O LSTM permanece promissor para dados de maior resolução (horários, medição inteligente) ou com variáveis exógenas.
 
----
+## Principais limitações
 
-# Próximos Passos (alinhamento em andamento)
+- "Comercial Cativo" é uma aproximação do Subgrupo B3 (a base não tem coluna de subgrupo tarifário).
+- Incerteza da projeção cresce ao longo dos 57 meses, especialmente em 2029–2030.
+- Encargos do mercado livre estimados por premissa (três cenários), não por dados de mercado; garantias financeiras e penalidades por desvio de contrato não modeladas.
+- PLD como referência do preço no ACL, com 100% do consumo exposto a ele.
+- Extrapolações simples de tarifa (6% a.a.) e PLD (média sazonal 2021–2026); não capturam choques hidrológicos como o de 2021.
+- Geração distribuída (SCEE) reduz o consumo registrado e não é modelada.
 
-- [ ] Reavaliar as métricas de erro dos modelos preditivos (RMSE/MAPE, tabela acima) sobre a base corrigida, verificando se as correções aplicadas ao período de teste (2024–2026) alteram o ranking dos modelos.
-- [ ] Incorporar ao notebook 03 a segmentação Cativo/Livre (proxy de grupo tarifário A/B) na análise do subgrupo B3 Comercial.
-- [ ] Avaliar impacto da geração distribuída fotovoltaica (pós-2016) como variável explicativa complementar.
-- [ ] Consolidar a seção de metodologia do artigo/relatório final com o detalhamento de qualidade de dados acima.
+## Uso de IA generativa
 
----
+O desenvolvimento do código contou com o assistente Claude (Anthropic) como apoio à programação, depuração e revisão. Todas as análises foram executadas e validadas pelo autor; o assistente não integra o método preditivo.
 
-Este repositório faz parte de uma linha de pesquisa acadêmica contínua voltada para:
+## Licença
 
-- Inteligência Artificial Aplicada a Sistemas de Energia
-- Previsão de Carga e Redes Inteligentes (*Smart Grids*)
-- Análise de Dados no Mercado Livre de Energia
-- Gestão de Riscos e Economia da Energia
-
-O objetivo final é conectar técnicas avançadas de Ciência de Dados com soluções de apoio à decisão para a transição e modernização do setor elétrico em Santa Catarina.
-
----
-
-# Autor
-
-**Dilsonei José Rigotti**
-
-*Mestrando em Sistemas de Energia (MPSEE) | Engenheiro | Pesquisador em IA e Sistemas de Energia*
-
-*Professor: Sérgio Ávila
-
-*Instituto Federal de Santa Catarina (IFSC) — Campus Florianópolis*
-
----
-
-### Repositório Oficial
-
-https://github.com/dilsoneir-dev/Mercado_Energia_B3_Celesc
+Uso acadêmico.

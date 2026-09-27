@@ -1,22 +1,31 @@
+# Ambiente de referência dos resultados publicados (notebooks, README e relatório)
+# Python 3.11 — o TensorFlow estável não tem suporte oficial ao Python 3.14.
+# Versões fixadas para reprodutibilidade: com elas, os notebooks 02–04 geram
+# exatamente os mesmos números (o LSTM é executado em modo determinístico).
+#
+#   py -3.11 -m venv .venv
+#   .venv\Scripts\python -m pip install -r requirements.txt
+
 # Manipulação e Análise de Dados
-pandas>=2.0.0
-numpy>=1.24.0
-openpyxl>=3.1.0
+pandas==3.0.2
+numpy==2.4.4
+openpyxl==3.1.5
 
 # Visualização de Dados
-matplotlib>=3.7.0
-seaborn>=0.12.0
+matplotlib==3.10.9
+seaborn==0.13.2
 
-# Modelagem Estatística e Séries Temporais (STL / SARIMAX)
-statsmodels>=0.14.0
-scipy>=1.10.0
+# Modelagem Estatística e Séries Temporais (STL / Holt-Winters)
+statsmodels==0.15.0
+scipy==1.17.1
 
 # Machine Learning (HistGradientBoosting)
-scikit-learn>=1.3.0
+scikit-learn==1.8.0
 
-# Redes Neurais / Deep Learning (usado no notebook 02 para LSTM)
-tensorflow>=2.12.0
+# Redes Neurais / Deep Learning (LSTM — notebooks 02 e 03)
+tensorflow==2.21.0
+keras==3.15.1
 
 # Ambiente de Execução
-jupyter>=1.0.0
-ipykernel>=6.20.0
+jupyter
+ipykernel

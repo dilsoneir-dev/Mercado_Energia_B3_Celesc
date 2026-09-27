@@ -1,64 +1,64 @@
 ano_teste,modelo,mape
 2005,Holt-Winters,10.63
 2005,Gradient Boosting,12.45
-2005,LSTM,12.54
+2005,LSTM,14.1
 2006,Holt-Winters,3.73
 2006,Gradient Boosting,6.85
-2006,LSTM,8.65
+2006,LSTM,7.24
 2007,Holt-Winters,9.75
 2007,Gradient Boosting,10.29
-2007,LSTM,12.72
-2008,Holt-Winters,6.79
+2007,LSTM,11.36
+2008,Holt-Winters,6.86
 2008,Gradient Boosting,11.55
-2008,LSTM,16.76
+2008,LSTM,13.64
 2009,Holt-Winters,12.35
 2009,Gradient Boosting,19.92
-2009,LSTM,18.21
+2009,LSTM,21.55
 2010,Holt-Winters,9.71
 2010,Gradient Boosting,7.59
-2010,LSTM,9.61
+2010,LSTM,14.39
 2011,Holt-Winters,11.87
 2011,Gradient Boosting,12.9
-2011,LSTM,13.62
+2011,LSTM,13.93
 2012,Holt-Winters,10.72
 2012,Gradient Boosting,10.79
-2012,LSTM,17.06
+2012,LSTM,17.19
 2013,Holt-Winters,10.01
 2013,Gradient Boosting,9.94
-2013,LSTM,29.04
+2013,LSTM,26.92
 2014,Holt-Winters,12.79
 2014,Gradient Boosting,22.23
-2014,LSTM,23.25
+2014,LSTM,30.82
 2015,Holt-Winters,6.1
 2015,Gradient Boosting,9.82
-2015,LSTM,12.31
+2015,LSTM,20.76
 2016,Holt-Winters,7.61
 2016,Gradient Boosting,6.42
-2016,LSTM,11.12
+2016,LSTM,10.32
 2017,Holt-Winters,11.13
 2017,Gradient Boosting,6.85
-2017,LSTM,12.25
-2018,Holt-Winters,12.37
-2018,Gradient Boosting,8.12
-2018,LSTM,12.21
+2017,LSTM,7.99
+2018,Holt-Winters,12.38
+2018,Gradient Boosting,8.17
+2018,LSTM,10.96
 2019,Holt-Winters,7.29
-2019,Gradient Boosting,8.78
-2019,LSTM,10.25
+2019,Gradient Boosting,8.7
+2019,LSTM,10.46
 2020,Holt-Winters,13.55
-2020,Gradient Boosting,14.73
-2020,LSTM,10.72
+2020,Gradient Boosting,14.55
+2020,LSTM,11.36
 2021,Holt-Winters,5.24
-2021,Gradient Boosting,5.34
-2021,LSTM,6.57
+2021,Gradient Boosting,5.75
+2021,LSTM,4.66
 2022,Holt-Winters,3.22
-2022,Gradient Boosting,5.6
-2022,LSTM,7.7
-2023,Holt-Winters,3.12
-2023,Gradient Boosting,6.15
-2023,LSTM,10.21
+2022,Gradient Boosting,5.89
+2022,LSTM,5.38
+2023,Holt-Winters,3.1
+2023,Gradient Boosting,5.96
+2023,LSTM,9.51
 2024,Holt-Winters,9.41
-2024,Gradient Boosting,11.24
-2024,LSTM,7.74
+2024,Gradient Boosting,10.43
+2024,LSTM,8.46
 2025,Holt-Winters,11.75
-2025,Gradient Boosting,6.42
-2025,LSTM,7.18
+2025,Gradient Boosting,5.82
+2025,LSTM,13.0

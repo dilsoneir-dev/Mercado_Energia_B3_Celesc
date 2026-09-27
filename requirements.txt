@@ -1,6 +1,6 @@
 # Ambiente de referência dos resultados publicados (notebooks, README e relatório)
 # Python 3.11 — o TensorFlow estável não tem suporte oficial ao Python 3.14.
-# Versões fixadas para reprodutibilidade: com elas, os notebooks 02–04 geram
+# Versões fixadas para reprodutibilidade: os notebooks 02–04 geram
 # exatamente os mesmos números (o LSTM é executado em modo determinístico).
 #
 #   py -3.11 -m venv .venv

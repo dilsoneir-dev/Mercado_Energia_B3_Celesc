@@ -33,7 +33,9 @@ Mercado_Energia_B3_Celesc/
 │   └── processed/                              # Séries tratadas, métricas, previsões e simulações
 ├── results/
 │   └── plots/                                  # Figuras do relatório
-├── report/                                     # Relatório final (docx)
+├── report/
+│   ├── Relatorio_TecnicasIA_Dilsonei.docx      # Relatório final (formato IEEE)
+│   └── Apresentação_TecnicasIA_Dilsonei.pptx   # Apresentação do trabalho
 ├── scripts/
 │   └── organizar_dados.py                      # Prepara os brutos (compressão .gz + SHA256SUMS.txt); fora dos notebooks
 ├── requirements.txt

@@ -29,13 +29,13 @@ Mercado_Energia_B3_Celesc/
 │   └── 04_analise_economica_migracao_acl.ipynb # Simulação Cativo x Livre, encargos do mercado livre e riscos
 ├── data/
 │   ├── CELESC/  ANEEL/  CCEE/                  # Dados brutos originais (maiores em .csv.gz)
-│   ├── SHA256SUMS.txt                          # Hash SHA-256 de cada arquivo bruto
+│   ├── SHA256SUMS.txt                          # "Impressão digital" de cada bruto: congela a versão dos dados
 │   └── processed/                              # Séries tratadas, métricas, previsões e simulações
 ├── results/
 │   └── plots/                                  # Figuras do relatório
-├── report/                                     # Relatório final (Relatorio_Final_IEEE_TecnicasIA_Dilsonei.docx)
+├── report/                                     # Relatório final (docx)
 ├── scripts/
-│   └── organizar_dados.py
+│   └── organizar_dados.py                      # Prepara os brutos (compressão .gz + SHA256SUMS.txt); fora dos notebooks
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -55,6 +55,14 @@ Os dados brutos estão versionados no próprio repositório e também podem ser 
 
 - `data/ANEEL/tarifas-homologadas-distribuidoras-energia-eletrica.csv` (~89 MB): versão descomprimida do `.csv.gz` versionado.
 - `data/CELESC/Municipio_Mensal_1T_2026.xlsx` (~36 MB): planilha de consumo mensal por município baixada do portal de Dados de Consumo da CELESC (link acima), com data de arquivo de 02/08/2026. Não é lida pelos notebooks; é mantida apenas localmente como registro da fonte original.
+
+**Congelamento dos dados (`data/SHA256SUMS.txt`).** Os portais da CELESC, da ANEEL e da CCEE são atualizados continuamente, então baixar os dados novamente não garante obter os mesmos arquivos usados neste trabalho. O `SHA256SUMS.txt` registra o hash SHA-256 (uma "impressão digital" do conteúdo) de cada arquivo bruto: ele congela a versão dos dados que gerou os resultados e permite detectar qualquer alteração posterior. Se um arquivo for substituído por uma versão nova baixada do portal, o hash deixa de coincidir.
+
+**Preparação dos dados brutos (`scripts/organizar_dados.py`).** Script executado **fora dos notebooks**, antes do notebook 00, e necessário apenas quando os dados brutos são atualizados. Ele comprime os brutos grandes (CELESC e ANEEL) em `.csv.gz` para caberem no limite do GitHub (100 MB), confere a integridade da compressão comparando os hashes e gera o `data/SHA256SUMS.txt`. Não faz parte da análise: o tratamento, a modelagem e as simulações, que estão todos nos notebooks.
+
+```bash
+python scripts/organizar_dados.py
+```
 
 ## Como executar
 
@@ -105,7 +113,7 @@ Execute os notebooks na ordem **00 → 02 → 03 → 04**. O notebook 01 é expl
 
 A ferramenta de inteligência computacional central é a rede neural recorrente **LSTM**, escolhida porque a projeção de consumo é um problema de série temporal: cada valor depende dos meses anteriores e do mesmo mês em anos passados. O LSTM foi concebido para aprender dependências de longo prazo em sequências e, por ser não linear, pode capturar rupturas como a recessão de 2015–2016, a pandemia de 2020 e a queda de 2025. O **Gradient Boosting** foi adotado como comparação (segunda técnica) de aprendizado de máquina (abordagem não neural, de menor custo), e o **Holt-Winters** como referência estatística — uma técnica de IA só se justifica se superar um método clássico bem ajustado.
 
-O trabalho não pressupõe a superioridade da IA: o LSTM é tratado como hipótese a ser testada, por validação walk-forward e teste de Wilcoxon, e não por uma única divisão treino/teste. O resultado indicou, para esta simulação, que o modelo Holt-Winters é mais preciso e estável, o que é coerente com a série: apenas 376 observações mensais, volume reduzido para redes profundas, e tendência e sazonalidade fortes, que um modelo de decomposição explícita captura de forma eficiente. O LSTM foi mantido na projeção por ser a ferramenta avaliada; essa escolha não altera a economia percentual, que depende apenas da razão entre as componentes tarifárias e é invariante ao modelo de consumo. O LSTM permanece mais promissor para dados de maior resolução (horários, medição inteligente) e/ou com variáveis exógenas (temperatura, atividade econômica, geração distribuída, feriados, tarifas,...).
+O trabalho não pressupõe a superioridade da IA: o LSTM é tratado como hipótese a ser testada, por validação walk-forward e teste de Wilcoxon, e não por uma única divisão treino/teste. O resultado indicou, para esta simulação, que o modelo Holt-Winters é mais preciso e estável, o que é coerente com a série: apenas 376 observações mensais, volume reduzido para redes profundas, e tendência e sazonalidade fortes, que um modelo de decomposição explícita captura de forma eficiente. O LSTM foi mantido na projeção por ser uma ferramenta a ser avaliada; essa escolha não altera a economia percentual, que depende apenas da razão entre as componentes tarifárias e é invariante ao modelo de consumo. O LSTM é mais promissor para dados de maior resolução (informação horária, medição inteligente) e/ou com variáveis exógenas (temperatura, atividade econômica, geração distribuída, feriados, tarifas,...).
 
 ## Principais limitações
 
@@ -118,7 +126,7 @@ O trabalho não pressupõe a superioridade da IA: o LSTM é tratado como hipóte
 
 ## Uso de IA generativa
 
-O desenvolvimento do código contou com o assistente Claude (Anthropic) como apoio à programação, depuração e revisão. Todas as análises foram executadas e validadas pelo autor; o assistente não integra o método preditivo.
+O desenvolvimento dos códigos e scripts contou com o assistente Claude (Anthropic) como apoio à programação, depuração e revisão. Todas as análises foram executadas e validadas pelo autor; o assistente não integra o método preditivo.
 
 ## Licença
 
